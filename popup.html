@@ -1,9 +1,27 @@
 <link href="popup.css" rel="stylesheet" type="text/css" />
 <script type="module" src="popup.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          clifford: '#da373d',
+        },
+      },
+    },
+  };
+</script>
 
 <div class="container">
   <div>
-    <div class="title">Your bookmarks for this video</div>
+    <div class="title">Welcome to ChatGPT to Postgres</div>
+    <p>
+      Tables in each conversation are stored independently. If you want to use
+      the extension with your own Postgres database, signin to your Neon and get
+      started with your project
+    </p>
+    <button class="beautiful-button">Login</button>
 
     <div class="bookmarks" id="bookmarks"></div>
   </div>
