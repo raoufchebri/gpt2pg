@@ -3,8 +3,6 @@ const { Client } = require('pg');
 const allowCors = (fn) => async (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', 'https://chat.openai.com');
-  // another common pattern
-  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
   res.setHeader(
     'Access-Control-Allow-Methods',
     'GET,OPTIONS,PATCH,DELETE,POST,PUT'
@@ -30,7 +28,7 @@ const handler = async (request, response) => {
     await client.query(`SET search_path TO "${request.body.chatId}"`);
     const { rows } = await client.query(request.body.sql);
     response.status(200).json({
-      body: rows,
+      body: rows.slice(0,10),
     });
   } catch (e) {
     console.log(e);

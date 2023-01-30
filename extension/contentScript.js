@@ -1,5 +1,6 @@
 let currentChat = '';
 
+// const URL = 'http://localhost:3000';
 const URL = 'https://chatgpt-extension-api.vercel.app';
 
 (() => {
@@ -32,11 +33,10 @@ const URL = 'https://chatgpt-extension-api.vercel.app';
 
   // Create an observer instance linked to the callback function
   const observer = new MutationObserver(callback);
-  
+
   // Start observing the target node for configured mutations
   observer.observe(targetNode, config);
 })();
-
 
 // Add a button to run the SQL query
 const addRunSQLButton = () => {
@@ -60,21 +60,21 @@ const addRunSQLButton = () => {
       );
 
       // Run SQL button click handler
-      
+
       button.addEventListener('click', async () => {
         button.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75
             " fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
           </svg>Running query...`;
-      
+
         // Remove previous results
         const postgresResult =
           parentNode.getElementsByClassName('postgres-result')[0];
         if (postgresResult) {
           postgresResult.remove();
         }
-      
+
         const response = await fetch(`${URL}/api/handler`, {
           method: 'POST',
           headers: {
@@ -85,9 +85,9 @@ const addRunSQLButton = () => {
             chatId: currentChat,
           }),
         });
-      
+
         const { body, error } = await response.json();
-      
+
         if (error) {
           const p = document.createElement('p');
           p.classList.add('text-red-500', 'postgres-result');
@@ -109,7 +109,6 @@ const addRunSQLButton = () => {
     }
   }
 };
-
 
 async function jsonArrayToTable(jsonArray, parentNode) {
   const table = document.createElement('table');
@@ -140,6 +139,15 @@ async function jsonArrayToTable(jsonArray, parentNode) {
     for (let j = 0; j < keys.length; j++) {
       td = document.createElement('td');
       td.appendChild(document.createTextNode(jsonArray[i][keys[j]]));
+      tr.appendChild(td);
+    }
+    tableBody.appendChild(tr);
+  }
+  if (jsonArray.length == 10) {
+    tr = document.createElement('tr');
+    for (let j = 0; j < keys.length; j++) {
+      td = document.createElement('td');
+      td.appendChild(document.createTextNode('...'));
       tr.appendChild(td);
     }
     tableBody.appendChild(tr);

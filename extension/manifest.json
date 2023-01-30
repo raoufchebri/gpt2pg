@@ -1,8 +1,8 @@
 {
-  "name": "Postgres for ChatGPT",
+  "name": "gpt2pg",
   "version": "0.1.0",
   "description": "Running ChatGPT queries on Postgres",
-  "permissions": ["storage", "tabs"],
+  "permissions": ["tabs", "webRequest", "https://chat.openai.com/chat/*"],
   "host_permissions": ["https://chat.openai.com/chat/*"],
   "background": {
     "service_worker": "background.js"
@@ -15,20 +15,15 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": [
-        "assets/bookmark.png",
-        "assets/play.png",
-        "assets/delete.png",
-        "assets/save.png"
-      ],
+      "resources": ["assets/elephant-icon.png"],
       "matches": ["https://*.openai.com/*"]
     }
   ],
   "action": {
     "default_icon": {
-      "16": "assets/ext-icon.png",
-      "24": "assets/ext-icon.png",
-      "32": "assets/ext-icon.png"
+      "16": "assets/elephant-icon.png",
+      "24": "assets/elephant-icon.png",
+      "32": "assets/elephant-icon.png"
     },
     "default_title": "Postgres for ChatGPT",
     "default_popup": "popup.html"
