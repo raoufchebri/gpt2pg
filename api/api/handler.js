@@ -19,19 +19,30 @@ const allowCors = (fn) => async (req, res) => {
 };
 
 const handler = async (request, response) => {
+  const connectionString = request.body.databaseUrl || process.env.DATABASE_URL;
   const client = new Client({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: connectionString,
   });
   try {
     await client.connect();
-    await client.query(`CREATE SCHEMA IF NOT EXISTS "${request.body.chatId}"`);
-    await client.query(`SET search_path TO "${request.body.chatId}"`);
+    if (connectionString === process.env.DATABASE_URL) {
+      console.log('creating schema', request.body.chatId);
+      await client.query(
+        `CREATE SCHEMA IF NOT EXISTS "${request.body.chatId}"`
+      );
+      console.log('setting search path');
+      await client.query(`SET search_path TO "${request.body.chatId}"`);
+    } else {
+      console.log('querying database url', connectionString);
+    }
+    console.log('running query', request.body.sql);
     const { rows } = await client.query(request.body.sql);
     response.status(200).json({
-      body: rows.slice(0,10),
+      body: rows.slice(0, 10),
     });
+    console.log('query ran successfully');
   } catch (e) {
-    console.log(e);
+    console.log('error', e);
     response.status(400).json({
       error: e,
     });
