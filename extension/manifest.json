@@ -2,7 +2,7 @@
   "name": "gpt2pg",
   "version": "0.1.0",
   "description": "Running ChatGPT queries on Postgres",
-  "permissions": ["tabs", "webRequest", "https://chat.openai.com/chat/*"],
+  "permissions": ["tabs", "storage", "https://chat.openai.com/chat/*"],
   "host_permissions": ["https://chat.openai.com/chat/*"],
   "background": {
     "service_worker": "background.js"

@@ -6,9 +6,30 @@
     <div class="title">Welcome to gpt2pg</div>
     <div class="subtitle">Run ChatGPT SQL in Postgres</div>
     <p>
-      Tables in each conversation are stored independently. If you want to use
-      the extension with your own Postgres database, signin to your Neon and get
-      started with your project
+      Add your own PostgreSQL connection string and use your database, or keep
+      it off to use the default one.
     </p>
+    <p>
+      Create a Postgres database on
+      <a href="https://console.neon.tech">Neon</a> if you don't have one.
+    </p>
+    <div class="action">
+      <label class="switch">
+        <input type="checkbox" id="switchInput" />
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div id="connectionStringContainer">
+      <div display="flex">
+        <input
+          type="text"
+          id="connectionString"
+          placeholder="Enter connection string"
+          disabled
+        />
+        <button id="storeButton" disabled>Save</button>
+      </div>
+      <div id="errorMessage"></div>
+    </div>
   </div>
 </div>
